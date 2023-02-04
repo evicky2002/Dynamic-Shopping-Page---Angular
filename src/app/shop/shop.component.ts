@@ -16,6 +16,7 @@ import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 })
 export class ShopComponent implements OnInit {
   @Output() itemAdded: boolean = false
+  @Input() searchText: string
   // p: number = 1;
   // count: number = 6
   pages: number[] = []
@@ -25,8 +26,15 @@ export class ShopComponent implements OnInit {
   faCartShopping = faCartShopping
   items: Item[] = []
   allItems: Item[] = []
+  isSearchOn = false
   constructor(private dataService: DataService, private msg: MessengerService, private router: Router) { }
   ngOnInit(): void {
+    this.msg.getText().subscribe((a: any) => {
+      this.searchText = a
+      this.isSearchOn = true
+    }
+    )
+
     this.dataService.getAllData().then(
       (res) => {
         this.allItems = res as Item[]

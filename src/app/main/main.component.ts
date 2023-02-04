@@ -3,6 +3,7 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { DataService } from '../common/data.service';
 import { MessengerService } from '../common/messenger.service';
 import { Router } from '@angular/router';
+import { isEmpty } from 'rxjs';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -10,15 +11,30 @@ import { Router } from '@angular/router';
 })
 export class MainComponent implements OnInit {
 
+  showError = false
+
   arrItems: any[] = []
 
   cartNumber: number = 0
 
   faCartShopping = faCartShopping
   constructor(private dataService: DataService, private msg: MessengerService, private router: Router) { }
+  searchText: string
+
+  refresh() {
+    this.ngOnInit()
+    if (this.searchText) {
+      this.showError = false
+      this.msg.sendText(this.searchText)
+    } else {
+      this.showError = true
+    }
+  }
 
   ngOnInit(): void {
+
     let total = 0
+    console.log(this.searchText);
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     let d: number
     if (JSON.parse(JSON.stringify(localStorage.getItem("items"))) === null || JSON.parse(JSON.stringify(localStorage.getItem("count"))) === null) {

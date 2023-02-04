@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './main/main.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FilterPipe } from './common/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CartListComponent,
     CartItemComponent,
     MainComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
-    NgxPaginationModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

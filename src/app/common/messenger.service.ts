@@ -7,6 +7,8 @@ import { Item } from '../model/item';
 
 })
 export class MessengerService {
+
+  newSubject = new Subject()
   subject = new Subject()
   constructor() { }
   sendMsg(item: Item, count: number) {
@@ -18,5 +20,13 @@ export class MessengerService {
   }
   getMsg() {
     return this.subject.asObservable()
+  }
+
+  sendText(a: string) {
+    this.newSubject.next(a)
+  }
+
+  getText() {
+    return this.newSubject.asObservable()
   }
 }

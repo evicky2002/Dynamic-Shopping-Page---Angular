@@ -5,7 +5,9 @@
         </h1>
         <div>
             <div class="search-products">
-                <input id="search" type="text" placeholder="Search">
+                <p *ngIf="showError">Please enter some search term</p>
+                <input id="search" [(ngModel)]="searchText" type="text" placeholder="Search">
+                <button (click)="refresh()">Search</button>
             </div>
             <div>
                 <a routerLink="/products">

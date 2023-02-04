@@ -50,17 +50,41 @@ section>header {
         align-items: center;
 
         .search-products {
-            input {
-                width: 150px;
-                border: none;
+            p {
+                font-size: 10px;
+                margin: 16px;
+                padding: 8px;
+                background-color: #ff6060;
+                color: #fff;
                 border-radius: 4px;
-                padding: 4px;
-                margin-right: 16px;
-
-
-
             }
 
+            input {
+                width: 150px;
+                height: 35px;
+                border: none;
+                border-radius: 4px;
+                padding: 8px;
+                margin-right: 16px;
+            }
+
+            button {
+                width: 60px;
+                height: 35px;
+                padding: 8px;
+                border-radius: 4px;
+                border: none;
+                margin-right: 16px;
+            }
+
+            button:active {
+                background-color: #2176ff;
+                color: #fff;
+            }
+
+            input:focus {
+                outline: none;
+            }
         }
 
         .indicator {

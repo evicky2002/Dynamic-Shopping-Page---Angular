@@ -1,9 +1,17 @@
 <div class="main">
     <section class="body">
         <div class="items">
-            <app-item *ngFor="let item of items" [item]="item"></app-item>
+            <div *ngIf="!isSearchOn">
+                <app-item *ngFor="let item of items | appFilter:searchText" [item]="item"></app-item>
+
+            </div>
+
+            <div *ngIf="isSearchOn">
+                <app-item *ngFor="let item of allItems | appFilter:searchText" [item]="item"></app-item>
+            </div>
+
         </div>
-        <div class="pagination-component">
+        <div class="pagination-component" *ngIf="!isSearchOn">
 
             <button (click)="handlePreviousPageClick()" class="btn">Previous</button>
             <ul *ngFor="let a of pages; let i = index" (click)="handlePageClick(a)">
