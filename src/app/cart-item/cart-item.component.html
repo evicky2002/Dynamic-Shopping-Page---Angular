@@ -1,0 +1,29 @@
+<div class="cart-item-container">
+    <div class="content">
+        <img src="{{item.item.itemImage}}" alt="image">
+        <div class="cart-info">
+            <p class="item-name">{{item.item.itemName}}</p>
+            <div class="quantity-controls">
+                <p>Quantity:</p>
+                <div>
+                    <div class="minus">
+                        <fa-icon [icon]="faMinus" (click)="decrementItem()"></fa-icon>
+                    </div>
+
+                    <p class="quan">{{updatedItemCount}}</p>
+                    <div class="plus">
+                        <fa-icon [icon]="faPlus" (click)="incrementItem()"></fa-icon>
+                    </div>
+                </div>
+                <div class="update-btn" *ngIf="shouldUpdate" (click)="updateCount($event)" routerLink="/cart">
+                    <button class="update-btn">Update</button>
+                </div>
+
+            </div>
+            <h5>${{item.item.itemPrice}}</h5>
+        </div>
+
+
+    </div>
+</div>
+<hr>

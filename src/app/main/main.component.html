@@ -1,0 +1,30 @@
+<section class="shopping">
+    <header>
+        <h1>
+            Select items
+        </h1>
+        <div>
+            <div class="search-products">
+                <input id="search" type="text" placeholder="Search">
+            </div>
+            <div>
+                <a routerLink="/products">
+                    <h4>Products</h4>
+                </a>
+            </div>
+            <div>
+                <div class="indicator">
+                    <p>{{cartNumber}}</p>
+                </div>
+                <fa-icon [icon]="faCartShopping"></fa-icon>
+                <a routerLink="/cart">
+                    <h4>
+                        Cart
+                    </h4>
+                </a>
+
+            </div>
+        </div>
+
+    </header>
+</section>

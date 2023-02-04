@@ -1,0 +1,79 @@
+.main {
+
+    .selected {
+        background-color: #2176ff;
+        border-radius: 4px;
+        color: white;
+
+    }
+
+    background-color: rgb(234, 231, 231);
+
+
+    .body {
+        .items {
+            padding: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            background-color: white;
+            justify-content: space-between;
+        }
+
+        .pagination-component {
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            button {
+
+                border: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100px;
+                margin: 0px;
+                border-radius: 4px;
+                padding: 8px;
+            }
+
+            button:active {
+                background-color: #2176ff;
+                border-radius: 4px;
+                color: white;
+            }
+
+
+            p {
+                margin: 16px;
+            }
+
+            ul {
+                margin: 16px;
+                list-style: none;
+
+                button {
+                    border: none;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 40px;
+                    margin: 0px;
+                    border-radius: 4px;
+                    padding: 8px;
+                }
+
+
+                :active {
+                    background-color: #00368c;
+                    border-radius: 4px;
+
+                }
+            }
+
+        }
+
+
+    }
+}

@@ -1,0 +1,26 @@
+<div class="container">
+    <div>
+        <div class="cart-header">
+            <h3>Cart Items</h3>
+            <a href="/">
+                <h6 (click)="clearCart()">
+                    Clear cart
+                </h6>
+            </a>
+        </div>
+        <div class="is-empty" *ngIf="isEmpty" style="margin: 0px 16px;">
+            No items in cart
+        </div>
+        <div>
+            <app-cart-item *ngFor="let item of savedObj" [item]="item">
+            </app-cart-item>
+            <div class="bill" *ngIf="showTotal">
+                <h5>Total</h5>
+                <h5>${{grandTotal}}</h5>
+            </div>
+            <div class="bill1">
+                <button class="btn">Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>

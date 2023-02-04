@@ -1,0 +1,27 @@
+<div class="item-container">
+    <img src="{{item.itemImage}}" alt="Item Image">
+    <div class="item-content">
+        <p class="item-name">{{item.itemName}}</p>
+        <p class="item-price">${{item.itemPrice}}</p>
+    </div>
+    <div class="item-controls">
+        <div class="controls">
+            <div class="minus">
+                <fa-icon [icon]="faMinus" (click)="decrementItem()"></fa-icon>
+
+            </div>
+            <p class="count">{{count}}</p>
+
+
+            <div class="plus">
+                <fa-icon [icon]="faPlus" (click)="incrementItem()"></fa-icon>
+            </div>
+
+        </div>
+        <div class="btn">
+            <button type="submit" (click)="handleAddToCart()">Add to Cart</button>
+        </div>
+
+    </div>
+    <div class="alert" *ngIf="showAlert">Item Added</div>
+</div>

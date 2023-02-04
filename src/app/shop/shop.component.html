@@ -1,0 +1,24 @@
+<div class="main">
+    <section class="body">
+        <div class="items">
+            <app-item *ngFor="let item of items" [item]="item"></app-item>
+        </div>
+        <div class="pagination-component">
+
+            <button (click)="handlePreviousPageClick()" class="btn">Previous</button>
+            <ul *ngFor="let a of pages; let i = index" (click)="handlePageClick(a)">
+                <div class="number">
+                    <li><button [ngClass]="{'selected': currentPage ==i+1}">{{a}}</button></li>
+                </div>
+            </ul>
+            <button class="btn" (click)="handleNextPageClick()">Next</button>
+        </div>
+        <!-- <div class="items">
+            <app-item *ngFor="let item of items | paginate: { itemsPerPage: count, currentPage:p}"
+                [item]="item"></app-item>
+        </div> -->
+        <!-- <div class="pagination">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div> -->
+    </section>
+</div>
