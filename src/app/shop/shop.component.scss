@@ -4,14 +4,22 @@
         background-color: #2176ff;
         border-radius: 4px;
         color: white;
-
     }
 
-    background-color: rgb(234, 231, 231);
 
 
     .body {
+
+        .products-heading {
+            h1 {
+                margin: 16px 50px;
+                margin-top: 32px;
+            }
+        }
+
         .items {
+            margin-bottom: 10px;
+
             div {
                 display: flex;
                 flex-wrap: wrap;
@@ -29,58 +37,24 @@
             justify-content: center;
         }
 
-        .pagination-component {
-            background-color: #fff;
+        .pagination {
+            padding: 16px;
             display: flex;
             justify-content: center;
-            align-items: center;
 
-            button {
+        }
 
-                border: none;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100px;
-                margin: 0px;
-                border-radius: 4px;
-                padding: 8px;
-            }
+        .pagination ::ng-deep .ngx-pagination {
+            box-shadow: 0px 0px 10px -3px rgba(0, 0, 0, 0.06);
 
-            button:active {
-                background-color: #2176ff;
-                border-radius: 4px;
-                color: white;
-            }
+            border-radius: 4px;
+            padding: 16px;
+            background-color: rgb(246, 244, 244)
+        }
 
-
-            p {
-                margin: 16px;
-            }
-
-            ul {
-                margin: 16px;
-                list-style: none;
-
-                button {
-                    border: none;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 40px;
-                    margin: 0px;
-                    border-radius: 4px;
-                    padding: 8px;
-                }
-
-
-                :active {
-                    background-color: #00368c;
-                    border-radius: 4px;
-
-                }
-            }
-
+        .pagination ::ng-deep .ngx-pagination .current {
+            background: #2176ff;
+            border-radius: 4px;
         }
 
 

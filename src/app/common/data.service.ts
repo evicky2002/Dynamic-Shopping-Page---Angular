@@ -7,67 +7,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class DataService implements OnInit {
+  items: Item[] = [];
   data: object
   constructor(private http: HttpClient) { }
   ngOnInit(): void {
 
   }
-  items: Item[] = [
-  ];
+  getDataFromApi(pageNumber: number, sortOrder: number = 1, sortCategory = "itemName", searchText = "", lowerLimit: number = 0, upperLimit: number = 0): Observable<any> {
+    let params = {
+      "pageNumber": pageNumber,
+      "limit": 6,
+      "searchText": searchText,
+      "sortCategory": sortCategory,
+      "sortOrder": sortOrder,
+      "lowerLimit": lowerLimit,
+      "upperLimit": upperLimit
+    }
+    return this.http.post<any>("http://localhost:3000/datas", params)
 
-  getData_observable(): Observable<any> {
-    return this.http.get("http://localhost:3000/datas")
-  }
-
-  getAllData() {
-    const promise = new Promise<void>((resolve, reject) => {
-      this.http.get<any>("http://localhost:3000/getAll").subscribe({
-        next: (res: any) => {
-          this.data = res
-          res = Object.values(res)[0]
-          this.data = res
-          resolve(res);
-        },
-        error: (err: any) => {
-          reject(err);
-        },
-        complete: () => {
-          console.log('complete');
-          console.log(this.data)
-        },
-      });
-    }).then((res) => {
-      console.log("after fetching");
-      console.log(res);
-      console.log(this.data)
-      return this.data
-    });
-    return promise;
-  }
-
-  getData(a: number) {
-    const promise = new Promise<void>((resolve, reject) => {
-      this.http.get<any>("http://localhost:3000/datas?page=" + a).subscribe({
-        next: (res: any) => {
-          this.data = res
-          res = Object.values(res)[0]
-          this.data = res
-          resolve(res);
-        },
-        error: (err: any) => {
-          reject(err);
-        },
-        complete: () => {
-          console.log('complete');
-          console.log(this.data)
-        },
-      });
-    }).then((res) => {
-      console.log("after fetching");
-      console.log(res);
-      console.log(this.data)
-      return this.data
-    });
-    return promise;
   }
 }

@@ -27,9 +27,8 @@ export class ItemComponent implements OnInit {
   }
   handleAddToCart() {
     if (this.count === 0) {
-
     } else {
-      this.msg.sendMsg(this.item, this.count)
+      this.msg.sendCartItem(this.item, this.count)
       this.showAlert = true
       setTimeout(() => {
         console.log("wait")
@@ -41,13 +40,13 @@ export class ItemComponent implements OnInit {
   }
   sendSignal() {
     this.showAlert = false
-
   }
 
 
   incrementItem() {
     this.count++
   }
+
   decrementItem() {
     this.count--
     if (this.count < 0) {

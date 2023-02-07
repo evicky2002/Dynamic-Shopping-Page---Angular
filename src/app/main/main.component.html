@@ -1,32 +1,52 @@
 <section class="shopping">
     <header>
-        <h1>
-            Select items
-        </h1>
+        <img height=120px src="./assets/logo.png" alt="">
         <div>
-            <div class="search-products">
-                <p *ngIf="showError">Please enter some search term</p>
-                <input id="search" [(ngModel)]="searchText" type="text" placeholder="Search">
-                <button (click)="refresh()">Search</button>
+            <div class="login">
+                <button>Login</button>
             </div>
-            <div>
+            <div class="sign-up">
+                <button>Sign up</button>
+            </div>
+            <div class="products">
                 <a routerLink="/products">
                     <h4>Products</h4>
                 </a>
             </div>
-            <div>
-                <div class="indicator">
-                    <p>{{cartNumber}}</p>
-                </div>
+            <div class="cart">
                 <fa-icon [icon]="faCartShopping"></fa-icon>
                 <a routerLink="/cart">
                     <h4>
                         Cart
                     </h4>
                 </a>
-
+                <div class="indicator">
+                    <p>{{cartNumber}}</p>
+                </div>
+            </div>
+            <div class="search-products">
+                <p *ngIf="showError">Please enter some search term</p>
+                <input id="search" [(ngModel)]="searchText" type="text" placeholder="Search">
+                <button (click)="searchProducts()">Search</button>
+            </div>
+            <div class="sort">
+                <select [name]="value" [(ngModel)]="selectedOption" name="dropdown" id="select-items"
+                    (change)="changeSortOrder()">
+                    <option disabled selected value="undefined">Sort</option>
+                    <option *ngFor="let o of options; let i=index">
+                        {{o.name}}
+                    </option>
+                </select>
+            </div>
+            <div class="sort filter">
+                <select [name]="value" [(ngModel)]="selectedFilter" name="dropdown" id="select-items"
+                    (change)="changeFilter()">
+                    <option disabled selected value="undefined">Filter</option>
+                    <option *ngFor="let o of filterOptions; let i=index">
+                        {{o.name}}
+                    </option>
+                </select>
             </div>
         </div>
-
     </header>
 </section>

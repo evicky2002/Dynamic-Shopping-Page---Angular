@@ -28,8 +28,6 @@ export class CartListComponent implements OnInit {
           this.grandTotal = this.grandTotal + (itemCount * item.item.itemPrice)
         }
         console.log(this.grandTotal)
-
-
       } else {
         this.isEmpty = true
       }
@@ -38,6 +36,5 @@ export class CartListComponent implements OnInit {
   clearCart() {
     localStorage.removeItem("items")
     localStorage.removeItem("count")
-
   }
 }

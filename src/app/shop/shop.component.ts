@@ -16,9 +16,9 @@ import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 })
 export class ShopComponent implements OnInit {
   @Output() itemAdded: boolean = false
-  @Input() searchText: string
-  // p: number = 1;
-  // count: number = 6
+  @Input() searchText: string = ""
+  p: number = 1;
+  count: number = 6
   pages: number[] = []
   currentPage = 1
   arrItems: any[] = []
@@ -27,43 +27,45 @@ export class ShopComponent implements OnInit {
   items: Item[] = []
   allItems: Item[] = []
   isSearchOn = false
+  sortOrder = 1
+  sortCategory = "itemName"
+  lowerLimit = 0
+  upperLimit = 0
   constructor(private dataService: DataService, private msg: MessengerService, private router: Router) { }
   ngOnInit(): void {
-    this.msg.getText().subscribe((a: any) => {
+
+
+    //price filter listener
+
+    this.msg.getPriceRange().subscribe((arr: any) => {
+      this.lowerLimit = arr[0]
+      this.upperLimit = arr[1]
+      this.getDataFromApiCall()
+
+    })
+    //search listener
+    this.msg.getSearchText().subscribe((a: any) => {
       this.searchText = a
       this.isSearchOn = true
-    }
-    )
+      //show current page data
+      this.getDataFromApiCall()
 
-    this.dataService.getAllData().then(
-      (res) => {
-        this.allItems = res as Item[]
-        let totalItemLength = this.allItems.length
-        this.totalPages = totalItemLength / 6
-        console.log("1 promise finish")
-        console.log(this.totalPages);
-        for (let i = 1; i <= this.totalPages; i++) {
-          this.pages.push(i)
-        }
-        console.log(this.pages);
-      },
-      (error) => {
-        console.log("error")
-      }
-    )
-    this.dataService.getData(this.currentPage).then(
-      (res) => {
-        this.items = res as Item[]
-        console.log(this.currentPage);
-        console.log("2 promise finish")
-        console.log(this.items);
-      },
-      (error) => {
-        console.log("error")
-      })
+    })
+
+    //show current page data
+    this.getDataFromApiCall()
+
+    //sort listener
+    this.msg.getSortOrder().subscribe((a: any) => {
+      this.sortOrder = a[0]
+      this.sortCategory = a[1]
+      //show current page data
+      this.getDataFromApiCall()
+    })
+
 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-
+    //get objects from localstorage
     let stringObjects = JSON.parse(JSON.stringify(localStorage.getItem("items") || "[]"))
     let objects = JSON.parse(stringObjects)
     if (this.arrItems.length === 0) {
@@ -72,17 +74,16 @@ export class ShopComponent implements OnInit {
       this.arrItems = [objects]
     }
 
-    // this.items = this.dataService.getUsers()
-
-    this.msg.getMsg().subscribe((p: any) => {
-      let a: Object = Object(p)
-      let b = JSON.stringify(a)
-      let c = JSON.parse(b)
-
-      if (c.item.itemName != '') {
+    //cart functionality
+    this.msg.getCartItem().subscribe((res: any) => {
+      let selectedItem_obj: Object = Object(res)
+      let selectedItem_str = JSON.stringify(selectedItem_obj)
+      let selectedItem = JSON.parse(selectedItem_str)
+      if (selectedItem.item.itemName != '') {
+        //message is from item component to add to cart
         let e = {
-          "item": c.item,
-          "count": c.count
+          "item": selectedItem.item,
+          "count": selectedItem.count
         }
         let payload = this.arrItems as object
         if (e.count != 0) {
@@ -90,43 +91,29 @@ export class ShopComponent implements OnInit {
         }
         localStorage.setItem("items", JSON.stringify(payload))
       } else {
-        localStorage.setItem("count", c.count)
-        //action ll be on main to update cart count
+        //message is from cart item to update cart count
+        localStorage.setItem("count", selectedItem.count)
       }
     })
   }
 
-  handlePreviousPageClick() {
-    if (this.currentPage === 1) {
-      console.log("total pages:" + this.totalPages);
-      this.handlePageClick(this.totalPages + 1)
-    } else {
-      this.handlePageClick(this.currentPage + 1 - 1)
-    }
-    this.handlePageClick(this.currentPage - 1)
-  }
-  handleNextPageClick() {
-    if (this.currentPage === this.totalPages) {
-      this.handlePageClick(1)
-    } else {
-      this.handlePageClick(this.currentPage + 1)
-    }
 
-  }
 
-  handlePageClick(a: number) {
-    this.currentPage = a
-    console.log(a)
-
-    this.dataService.getData(this.currentPage).then(
+  getDataFromApiCall() {
+    this.dataService.getDataFromApi(this.currentPage, this.sortOrder, this.sortCategory, this.searchText, this.lowerLimit, this.upperLimit).subscribe(
       (res) => {
-        this.items = res as Item[]
-        console.log(this.currentPage);
-        console.log("2 promise finish")
-        console.log(this.items);
+
+        this.totalPages = res.datas.totalItems
+        this.items = res.datas.items
+
       },
       (error) => {
         console.log("error")
       })
+  }
+  //Pagination functions
+  handlePageClick(a: number) {
+    this.currentPage = this.p
+    this.getDataFromApiCall()
   }
 }

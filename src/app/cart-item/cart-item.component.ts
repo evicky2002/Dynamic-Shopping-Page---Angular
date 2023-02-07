@@ -27,6 +27,7 @@ export class CartItemComponent implements OnInit {
     this.originalItemCount = this.item.count
     this.updatedItemCount = this.originalItemCount
   }
+  // handle addition in cart item
   incrementItem() {
     this.updatedItemCount++
     if (this.updatedItemCount != this.originalItemCount) {
@@ -35,6 +36,8 @@ export class CartItemComponent implements OnInit {
       this.shouldUpdate = false
     }
   }
+
+  // handle subtraction in cart item
   decrementItem() {
     this.updatedItemCount--
     if (this.updatedItemCount < 0) {
@@ -46,6 +49,8 @@ export class CartItemComponent implements OnInit {
       this.shouldUpdate = false
     }
   }
+
+  // handle update click
   updateCount(event: Event) {
     if (this.updatedItemCount != this.originalItemCount) {
       let selectedItem = this.item.item._id
@@ -56,16 +61,16 @@ export class CartItemComponent implements OnInit {
       } else {
         this.cartItems = cartItems_obj
       }
-
-
+      //update the new count in localstorage
       for (let a in this.cartItems) {
         if (this.cartItems[a].item._id === selectedItem) {
           this.cartItems[a].count = this.updatedItemCount
           break
         }
       }
-
     }
+
+    //remove items with quantity as zero
     for (let a in this.cartItems) {
       if (this.cartItems[a].count === 0) {
       } else {
@@ -73,6 +78,7 @@ export class CartItemComponent implements OnInit {
       }
     }
 
+    //original cart quantity
     let cartQuantity = 0
     for (let a in this.cartItems) {
       cartQuantity = this.cartItems[a].count + cartQuantity
@@ -89,9 +95,8 @@ export class CartItemComponent implements OnInit {
       itemPrice: '',
       itemImage: ''
     }
-    console.log("original count: " + this.originalItemCount)
-    console.log("updated count: " + this.updatedItemCount)
-    this.msg.sendMsg(dummy, cartQuantity)
+    //update cart count
+    this.msg.sendCartItem(dummy, cartQuantity)
 
   }
 }

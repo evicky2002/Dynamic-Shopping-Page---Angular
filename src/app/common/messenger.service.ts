@@ -7,26 +7,46 @@ import { Item } from '../model/item';
 
 })
 export class MessengerService {
-
-  newSubject = new Subject()
-  subject = new Subject()
+  searchTextSubject = new Subject()
+  itemSubject = new Subject()
+  sortOrderSubject = new Subject()
+  priceFilterSubject = new Subject()
   constructor() { }
-  sendMsg(item: Item, count: number) {
+  sendCartItem(item: Item, count: number) {
     let a: any = {
       "item": item,
       "count": count
     }
-    this.subject.next(a)
+    this.itemSubject.next(a)
   }
-  getMsg() {
-    return this.subject.asObservable()
-  }
-
-  sendText(a: string) {
-    this.newSubject.next(a)
+  getCartItem() {
+    return this.itemSubject.asObservable()
   }
 
-  getText() {
-    return this.newSubject.asObservable()
+  sendSearchText(a: string) {
+    this.searchTextSubject.next(a)
+  }
+
+  getSearchText() {
+    return this.searchTextSubject.asObservable()
+  }
+
+  sendSortOrder(sortOrder: number, sortCategory: string) {
+    let arr = [sortOrder, sortCategory]
+    this.sortOrderSubject.next(arr)
+  }
+
+  getSortOrder() {
+    return this.sortOrderSubject.asObservable()
+  }
+
+
+  sendPriceRange(lowerLimit: number, upperLimit: number) {
+    let arr = [lowerLimit, upperLimit]
+    this.priceFilterSubject.next(arr)
+  }
+
+  getPriceRange() {
+    return this.priceFilterSubject.asObservable()
   }
 }
